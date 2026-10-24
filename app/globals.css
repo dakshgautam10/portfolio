@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+:root {
+  --font-archivo: "Archivo", system-ui, -apple-system, sans-serif;
+  --font-jetbrains: "JetBrains Mono", ui-monospace, monospace;
+  --font-signature: "Mrs Saint Delafield", cursive;
+}
+
+@theme inline {
+  --color-ink: #1b1a18;
+  --color-ink-2: #26241f;
+  --color-ink-3: #2a2824;
+  --color-ghost: #34312c;
+  --color-line: #3a3732;
+  --color-paper: #f1ede4;
+  --color-sand: #e2dccf;
+  --color-sand-ghost: #cfc8b8;
+  --color-paper-line: #d6cfc1;
+  --color-muted: #a39e93;
+  --color-soft: #cfc9bd;
+  --color-stone: #5c5850;
+  --color-body: #4a463f;
+  --color-accent: #ff5b1f;
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-jetbrains);
+  --font-script: var(--font-signature);
+}
+
+html {
+  background: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.gutter {
+  padding-left: clamp(16px, 4vw, 56px);
+  padding-right: clamp(16px, 4vw, 56px);
+}
+
+/* ---------- motion ---------- */
+
+.dv-marquee {
+  display: flex;
+  width: max-content;
+  animation: dv-scroll 70s linear infinite;
+}
+.dv-marquee-rev {
+  animation-direction: reverse;
+  animation-duration: 55s;
+}
+.dv-marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes dv-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.dv-float {
+  animation: dv-float 6s ease-in-out infinite;
+}
+@keyframes dv-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.dv-lift {
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.dv-lift:hover {
+  transform: translateY(-8px) rotate(-1deg);
+}
+
+.dv-arrow {
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+a:hover .dv-arrow {
+  transform: translateX(6px);
+}
+
+.dv-blink {
+  animation: dv-blink 1.6s ease-in-out infinite;
+}
+@keyframes dv-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* hero entrance */
+.dv-intro {
+  animation: dv-intro 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes dv-intro {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* scroll reveal (only hides content when JS can reveal it again) */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition:
+      opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal[data-in] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* project stack */
+.proj-card {
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+.proj-screen-bar {
+  animation: dv-grow 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) infinite alternate;
+  transform-origin: bottom;
+}
+@keyframes dv-grow {
+  from { transform: scaleY(0.35); }
+  to { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dv-marquee,
+  .dv-float,
+  .dv-blink,
+  .dv-intro,
+  .proj-screen-bar {
+    animation: none;
+  }
+  .dv-lift,
+  .dv-arrow {
+    transition: none;
+  }
+}
