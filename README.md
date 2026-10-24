@@ -18,3 +18,4 @@ Open [http://localhost:3000](http://localhost:3000).
 - `app/data.ts` — profile, projects, skills, journey and certifications
 - `app/components/` — hero, vertical-scroll projects section, scroll reveal
 - `Main.dc.html` — original design mockup used as the visual reference
+# portfolio
